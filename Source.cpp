@@ -2,13 +2,29 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <complex.h>
-#inlcude <math.h>
 #define SIZE 1000
 using namespace std;
 
-double square(int num, double resolution);
-double complex cubicroot(double complex num, double resolution);
+double square(int num, double resolution) {
+    double root = 1;
+    double ort = 0;
+    while ((root - resolution) > ort) {
+        ort = root;
+        root = ((num / root) + root) / 2;
+    }
+    return root;
+}
 
+double complex cubicroot(double complex num, double resolution) {
+    float complex ort = 0;
+    double complex root = num;
+    while ((root - resolution) > ort) {
+        ort = root;
+        root = ort - (ort - 1 / (ort * ort)) / 3;
+
+    }
+    return root;
+}
 
 int main() {
     double resolution = 0.00001;
@@ -41,28 +57,4 @@ int main() {
     }
     shraniBMP(picture, SIZE, SIZE, "slikca.bmp");
     return 0;
-}
-
-
-
-
-double square(int num, double resolution) {
-    double root = 1;
-    double ort = 0;
-    while ((root - resolution) > ort) {
-        ort = root;
-        root = ((num / root) + root) / 2;
-    }
-    return root;
-}
-
-double complex cubicroot(double complex num, double resolution) {
-    float complex ort = 0;
-    double complex root = num;
-    while ((root - resolution) > ort) {
-        ort = root;
-        root = ort - (ort - 1 / (ort * ort)) / 3;
-
-    }
-    return root;
 }
